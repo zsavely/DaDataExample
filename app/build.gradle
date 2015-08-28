@@ -1,0 +1,48 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "23.0.0"
+    defaultConfig {
+        applicationId "ru.payqr.dadataexample"
+        minSdkVersion 9
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+
+        // DaData API Key
+        buildConfigField "String", "DADATA_API_KEY", "\"INSERT_YOUR_API_KEY_HERE\""
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def outputFile = output.outputFile
+                def dirPath = outputFile.parent
+
+                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                    def fileName = "DaDataExample-${versionCode}-${versionName}-${buildType.name}.apk";
+                    output.outputFile = new File(dirPath, fileName)
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // Google Support
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    // Realm
+    compile 'io.realm:realm-android:0.82.1'
+    // Retrofit
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
+    compile 'com.squareup.okio:okio:1.6.0'
+    // Google Gson
+    compile 'com.google.code.gson:gson:2.3.1'
+}

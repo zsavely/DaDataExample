@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DaData</string>
+
+    <string name="your_address">Ваш адрес:</string>
+</resources>
